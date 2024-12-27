@@ -75,7 +75,9 @@ const generateLegendItems = (maxValue) => {
 	return Array.from({ length: 6 }, (_, i) => {
 		const value = i * step;
 		return {
-			color: `rgb(255, ${255 - value * 2.55}, ${255 - value * 2.55})`,
+			color: `rgb(255, ${180 + (75 - value * 0.75)}, ${
+				180 + (75 - value * 0.75)
+			})`,
 			label: i === 5 ? `${value}+` : `${value}-${value + step - 1}`,
 		};
 	});
@@ -147,9 +149,9 @@ const HeatmapChartComponent = ({ data }) => {
 										key={j}
 										className="w-32 h-6 flex items-center cursor-pointer justify-center text-sm text-transparent hover:text-black"
 										style={{
-											backgroundColor: `rgb(255, ${255 - value * 2.55}, ${
-												255 - value * 2.55
-											})`,
+											backgroundColor: `rgb(255, ${
+												180 + (75 - value * 0.75)
+											}, ${180 + (75 - value * 0.75)})`,
 										}}
 									>
 										{value}

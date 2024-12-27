@@ -127,7 +127,6 @@ export function LineChartComponent({ data }) {
 					</LineChart>
 				</ChartContainer>
 				<div className="flex flex-col items-center mt-4">
-					<div className="text-sm font-medium mb-2">Legend</div>
 					<div className="flex items-center gap-4">
 						<div className="flex items-center mr-4">
 							<div className="w-4 h-4 mr-2 border bg-green-700"></div>

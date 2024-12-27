@@ -19,13 +19,13 @@ const processData = (data) => {
 			const existingItem = coordinateMap.get(key);
 			coordinateMap.set(key, {
 				...existingItem,
-				radius: existingItem.radius + 50,
+				radius: existingItem.radius + 10,
 			});
 		} else {
 			coordinateMap.set(key, {
 				latitude: item.latitude,
 				longitude: item.longitude,
-				radius: 50,
+				radius: 10,
 				street_name: item.street_name,
 			});
 		}

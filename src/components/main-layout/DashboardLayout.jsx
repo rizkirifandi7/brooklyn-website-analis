@@ -4,7 +4,7 @@ import MapComponent from "../chart/MapComponent";
 import { PieChartComponent } from "../chart/PieChartComponent";
 import InfoTotal from "./InfoTotal";
 import DashboardContent from "../DashboardContent";
-import Recomendation from "../Recomendation";
+import Recomendation from "./Recomendation";
 import HeatmapChartComponent from "../chart/HeatmapChartComponent";
 import BarLine from "../chart/BarLine";
 
@@ -15,7 +15,7 @@ const DashboardLayout = () => {
 		try {
 			const response = await fetch("/data_nyc.json");
 			const results = await response.json();
-			const limitedResults = results.slice(0, 10000);
+			const limitedResults = results.slice(0, 100000);
 			setData(limitedResults);
 		} catch (error) {
 			console.error(error);
@@ -48,8 +48,8 @@ const DashboardLayout = () => {
 
 	return (
 		<section className="bg-white min-h-screen w-full" id="dashboard">
-			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pt-40">
-				<h1 className="text-3xl font-semibold text-center" data-aos="zoom-in">
+			<div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 pt-40">
+				<h1 className="text-3xl font-semibold text-center uppercase" data-aos="zoom-in">
 					Dashboard Brooklyn Collision
 				</h1>
 

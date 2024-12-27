@@ -14,9 +14,6 @@ import {
 import {
 	Card,
 	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
 } from "@/components/ui/card";
 import {
 	ChartContainer,
@@ -137,18 +134,17 @@ const getTotalContributingFactors = (dataBar) => {
 		});
 	});
 
-	return Object.entries(totalFactors).map(([factor, total]) => ({
-		factor,
-		total,
-	}));
+	return Object.entries(totalFactors)
+		.map(([factor, total]) => ({
+			factor,
+			total,
+		}))
+		.sort((a, b) => b.total - a.total)
+		.slice(0, 10);
 };
 
-const ChartCard = ({ title, description, children }) => (
-	<Card className="border-none shadow-none mt-10">
-		<CardHeader>
-			<CardTitle>{title}</CardTitle>
-			<CardDescription>{description}</CardDescription>
-		</CardHeader>
+const ChartCard = ({ children }) => (
+	<Card className="border-none shadow-none">
 		<CardContent>{children}</CardContent>
 	</Card>
 );
@@ -169,8 +165,16 @@ const BarLine = ({ data, title, description, aos }) => {
 
 	const totalFactors = getTotalContributingFactors(dataBar);
 
+	const barChartData =
+		selectedStreet === "All Streets"
+			? totalFactors
+			: dataBar
+					.find((street) => street.streetName === selectedStreet)
+					?.factors.sort((a, b) => b.total - a.total)
+					.slice(0, 10) || [];
+
 	return (
-		<section className="bg-white min-h-screen w-full" id="dashboard">
+		<section className="bg-white h-full w-full" id="dashboard">
 			<div className="mx-auto max-w-7xl">
 				<DashboardContent title={title} description={description} aos={aos}>
 					<div className="flex justify-end gap-4 items-center h-full">
@@ -192,14 +196,8 @@ const BarLine = ({ data, title, description, aos }) => {
 						<ChartContainer config={chartConfig}>
 							<BarChart
 								accessibilityLayer
-								data={
-									selectedStreet === "All Streets"
-										? totalFactors
-										: dataBar.find(
-												(street) => street.streetName === selectedStreet
-										  )?.factors || []
-								}
-								margin={{ top: 30 }}
+								data={barChartData}
+								margin={{ top: 30, bottom: 30 }}
 							>
 								<CartesianGrid vertical={true} />
 								<XAxis
@@ -213,15 +211,15 @@ const BarLine = ({ data, title, description, aos }) => {
 										return (
 											<text x={x} y={y} dy={dy} textAnchor="middle" fill="#666">
 												{selectedStreet === "All Streets"
-													? payload.value.slice(0, 2)
-													: payload.value.slice(0, 15)}
+													? payload.value.slice(0, 6)
+													: payload.value.slice(0, 7)}
 											</text>
 										);
 									}}
 								/>
 								<YAxis tickLine={true} axisLine={true} tickMargin={8} />
 								<ChartTooltip cursor={true} content={<ChartTooltipContent />} />
-								<Bar dataKey="total" fill="hsl(var(--chart-2))" radius={8}>
+								<Bar dataKey="total" fill="hsl(var(--chart-1))" radius={8}>
 									<LabelList
 										position="top"
 										offset={12}
@@ -270,7 +268,7 @@ const BarLine = ({ data, title, description, aos }) => {
 									<Line
 										dataKey={selectedStreet}
 										type="linear"
-										stroke="hsl(var(--chart-2))"
+										stroke="hsl(var(--chart-1))"
 										strokeWidth={3}
 										dot={true}
 									>

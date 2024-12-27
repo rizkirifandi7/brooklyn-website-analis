@@ -31,8 +31,8 @@ const teamMembers = [
 const Team = () => {
 	return (
 		<section className="bg-white h-full w-full" id="team" >
-			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-10 pt-24" data-aos="zoom-in">
-				<h1 className="text-2xl font-semibold text-center">Team</h1>
+			<div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-10 pt-24" data-aos="zoom-in">
+				<h1 className="text-2xl font-semibold text-center uppercase">Team</h1>
 				<div className="grid grid-cols-5 gap-4 mt-10">
 					{teamMembers.map((member, index) => (
 						<Card
